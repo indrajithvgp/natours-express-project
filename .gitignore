@@ -1,0 +1,6 @@
+.eslintrc.json
+.prettierrc
+/node_modules
+/public/img
+/dev-data/img
+/dev-data/templates
