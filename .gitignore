@@ -4,3 +4,6 @@
 /public/img
 /dev-data/img
 /dev-data/templates
+config.env
+
+.env
