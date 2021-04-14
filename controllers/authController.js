@@ -14,6 +14,11 @@ const signInToken = id => {
 
 const createTokenAndSend = (user, statusCode, res)=> {
     const token = signInToken(user._id)
+    res.cookie('jwt', token,{
+        expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN*24*60*60*1000),
+        httpOnly:true
+    })
+    user.password = undefined
     res.status(statusCode).json({
         status: 'success',
         token,
@@ -56,13 +61,14 @@ exports.protect = catchAsync(async(req,res,next)=>{
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         token = req.headers.authorization.split(' ')[1]
     }
-    console.log(token)
     if(!token){
         return next(new AppError("You are not logged In! Please log in to get Access", 401))
     }
-    const decoded =  await promisify(jwt.verify(token, process.env.JWT_TOKEN))
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN)
 
     const currentUser = await User.findById(decoded.id)
+
+    
 
     if(!currentUser){
         return next(new AppError('The User belonging to this token does not exist', 401))
