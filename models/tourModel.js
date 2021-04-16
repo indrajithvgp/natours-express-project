@@ -121,6 +121,15 @@ tourSchema.pre('save', function(next){
   next()
 })
 
+tourSchema.pre(/^find/, function(next){
+  this.populate({
+    path:'guides',
+    select:'-__v -passwordChangedAt'
+  })
+  
+  next()
+})
+
 
 //Embedding
 
@@ -135,11 +144,7 @@ tourSchema.pre('save', function(next){
 //   next()
 // })
 
-// tourSchema.pre(/^find/, function(next){
-//   console.log("I am Post Save 1")
-  
-//   next()
-// })
+
 
 const Tour = mongoose.model('Tour', tourSchema);
 

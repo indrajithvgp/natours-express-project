@@ -14,7 +14,7 @@ const signInToken = id => {
 
 const createTokenAndSend = (user, statusCode, res)=> {
     const token = signInToken(user._id)
-    res.cookie('jwt', token,{
+    res.cookie('TOKEN', token,{
         expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN*24*60*60*1000),
         httpOnly:true
     })
@@ -85,6 +85,7 @@ exports.restrictTo = (...roles) => {
         if(!roles.includes(req.user.role)){
             return next(new AppError('You do not have permission to perform this action', 403))
         }
+        next()
     }
 }
 

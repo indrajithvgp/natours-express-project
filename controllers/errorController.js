@@ -21,7 +21,7 @@ const sendErrorDev = (err, res)=>{
         status:err.status,
         err:err,
         stack:err.stack,
-        message:err.message
+        message:err.name
     })
 }
 
@@ -46,7 +46,7 @@ module.exports = (err, req, res, next) => {
         let error = {...err} 
         if(err.name === 'CastError') error = handleCastErrorDB(error);
         if(err.code===11000) error = handleDuplicateFields(error);
-        // if(err.name==='JsonWebTokenError') error = handleJWTError(error);
+        if(err.name==='JsonWebTokenError') error = handleJWTError(error);
         if(err.name==='TokenExpiredError') error = handleJWTExpiredError(error);
         sendErrorDev(error, res)
     }else if(process.env.NODE_ENV === "production"){
