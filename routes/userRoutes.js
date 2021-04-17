@@ -1,6 +1,7 @@
 const express = require('express')
 const {getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe, deleteMe} = require('../controllers/userController')
 const {signUp, login, forgotPassword, resetPassword, updatePassword, protect} = require('../controllers/authController')
+
 const router = express.Router()
 
 router.route('/signup').post(signUp)
@@ -23,5 +24,7 @@ router
     .get(getUser)
     .patch(updateUser)
     .delete(deleteUser);
+
+
 
 module.exports = router;
