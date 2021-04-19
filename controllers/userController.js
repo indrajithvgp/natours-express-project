@@ -1,6 +1,7 @@
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
 const User = require('../models/userModel')
+const {deleteOne, updateOne} = require('../controllers/handlerFactory')
 
 const filteredBody = (obj, ...allowedFields)=>{
     const newObj = {}
@@ -34,19 +35,9 @@ exports.createUser = (req, res)=>{
         message:"ROUTE is NOT yet implemented"
     })
 }
-exports.updateUser = (req, res)=>{
-    res.status(500).json({
-        status:"failure",
-        message:"ROUTE is NOT yet implemented"
-    })
-}
+exports.updateUser = updateOne(User)
 
-exports.deleteUser = (req, res)=>{
-    res.status(500).json({
-        status:"failure",
-        message:"ROUTE is NOT yet implemented"
-    })
-}
+exports.deleteUser = deleteOne(User)
 
 exports.updateMe = catchAsync(async (req, res, next)=>{
     if(req.body.password || req.body.passwordConfirm){
