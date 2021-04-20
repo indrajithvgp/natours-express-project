@@ -43,6 +43,14 @@ const reviewSchema = new mongoose.Schema({
 //     next()
 // })
 
+reviewSchema.statics.calcAverageRatings = function(tourId){
+    this.aggregate([
+        { 
+            $match:{tour}
+        }
+    ])
+}
+
 const Review = mongoose.model('Review', reviewSchema);
 
 

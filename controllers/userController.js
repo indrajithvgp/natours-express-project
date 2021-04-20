@@ -22,12 +22,20 @@ exports.getAllUsers = catchAsync(async(req, res)=>{
     })
 })
 
-exports.getUser = (req, res)=>{
-    res.status(500).json({
-        status:"failure",
-        message:"ROUTE is NOT yet implemented"
+// exports.getUser = (req, res)=>{
+//     res.status(500).json({
+//         status:"failure",
+//         message:"ROUTE is NOT yet implemented"
+//     })
+// }
+
+exports.getUser = catchAsync(async(req, res, next)=>{
+    const user = await User.findById(req.user.id)
+    res.status(201).json({
+        status:"success",
+        data:user
     })
-}
+})
 
 exports.createUser = (req, res)=>{
     res.status(500).json({
@@ -66,4 +74,9 @@ exports.deleteMe = catchAsync(async(req, res, next) => {
     })
     next()
 
+})
+
+exports.getMe = catchAsync(async (req, res, next) => {
+    req.params.id = req.user.id
+    next()
 })
