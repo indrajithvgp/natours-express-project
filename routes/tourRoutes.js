@@ -37,6 +37,6 @@ router.route('/:id')
 //     .post(protect, restrictTo('user'),createReview)
 
 
-router.use('/:tourId/review', reviewRouter )
+router.use('/:tourId/reviews', reviewRouter )
 
 module.exports = router;

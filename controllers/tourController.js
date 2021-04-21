@@ -154,4 +154,4 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
       status:'ok',
       data:plan
     })
-})
+}) 

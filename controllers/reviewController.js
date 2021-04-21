@@ -27,8 +27,6 @@ exports.setTourUserIds = (req, res, next) => {
 }
 
 exports.createReview = catchAsync(async(req, res, next)=>{
-
-        
     const newReview = await Review.create(req.body, req.user)
     console.log(req.body)
     res.status(201).json({
