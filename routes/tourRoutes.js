@@ -7,7 +7,9 @@ const {
   deleteTour,
   aliasTopTours,
   getTourStats,
-  getMonthlyPlan
+  getToursWithin,
+  getMonthlyPlan,
+  getDistances,
 } = require('../controllers/tourController');
 
 const {protect, restrictTo} = require('../controllers/authController')
@@ -36,7 +38,10 @@ router.route('/:id')
 // router.route('/:tourId/reviews')
 //     .post(protect, restrictTo('user'),createReview)
 
+router.route('/tours-within/:distance/center/:latlong/unit/:unit')
+  .get(getToursWithin)
 
 router.use('/:tourId/reviews', reviewRouter )
+router.get('/distances/:latlong/unit/:unit', getDistances)
 
 module.exports = router;
