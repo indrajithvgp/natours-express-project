@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit')
 const path = require('path')
 const helmet = require('helmet')
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 const tourRouter = require('./routes/tourRoutes');
@@ -19,7 +20,7 @@ app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
 
 /* Middlewares */
-app.use(helmet())
+// app.use(helmet())
 
 const limiter = rateLimit({
     max:100,
@@ -35,6 +36,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 
 app.use(express.json());
+app.use(cookieParser())
 
 app.use(mongoSanitize())
 app.use(xss())
