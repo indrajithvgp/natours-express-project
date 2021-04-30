@@ -5,6 +5,7 @@ const path = require('path')
 const helmet = require('helmet')
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 const tourRouter = require('./routes/tourRoutes');
@@ -34,6 +35,7 @@ if(process.env.NODE_ENV !== 'production'){
     app.use(morgan('dev'))
 }
 
+app.use(cors())
 
 app.use(express.json());
 app.use(cookieParser())
