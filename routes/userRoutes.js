@@ -1,6 +1,10 @@
 const express = require('express')
-const {getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe, getMe, deleteMe} = require('../controllers/userController')
+const multer = require('multer')
+const {getAllUsers, createUser, getUser, uploadUserPhoto, 
+    updateUser, deleteUser, updateMe, getMe, deleteMe} = require('../controllers/userController')
 const {signUp, login, forgotPassword, resetPassword, updatePassword,logout, protect} = require('../controllers/authController')
+
+
 
 const router = express.Router()
 
@@ -12,7 +16,7 @@ router.route('/logout').get(logout);
 
 router.patch('/updateMyPassword', protect, updatePassword)
 
-router.patch('/updateMe', protect, updateMe)
+router.patch('/updateMe', protect, uploadUserPhoto, updateMe)
 router.delete('/deleteMe', protect, deleteMe)
 
 router.route('/forgotPassword').post(forgotPassword)
