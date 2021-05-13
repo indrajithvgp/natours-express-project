@@ -5,7 +5,6 @@
 /dev-data/img
 /dev-data/templates
 config.env
-
 .env
-
+/.cache
 ./utils/getAll.js

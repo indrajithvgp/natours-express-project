@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const mongoSanitize = require('express-mongo-sanitize')
+const compression = require('compression')
 const xss = require('xss-clean')
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes')
@@ -46,7 +47,7 @@ app.use(mongoSanitize())
 app.use(xss())
 
 app.use(express.static(path.join(__dirname,'public')))
-
+app.use(compression())
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString()
     next()
